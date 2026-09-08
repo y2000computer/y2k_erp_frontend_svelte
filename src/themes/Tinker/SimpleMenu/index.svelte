@@ -1,0 +1,172 @@
+<script lang="ts">
+	import '@/assets/css/themes/tinker/side-nav.css';
+	import logoUrl from '@/assets/images/logo.svg';
+	import Lucide from '$lib/components/Lucide';
+	import TopBar from '@/components/Themes/Tinker/TopBar';
+	import MobileMenu from '@/components/MobileMenu';
+	import { page } from '$app/stores';
+	import { menuStore, menu } from '@/stores/menu';
+	import { type FormattedMenu, linkTo, nestedMenu } from './simple-menu';
+	import Tippy from '$lib/components/Tippy';
+	import { slide } from 'svelte/transition';
+	import clsx from 'clsx';
+
+	let formattedMenu: Array<FormattedMenu | 'divider'> = [];
+	const simpleMenu = () => nestedMenu(menu('simple-menu'), $page.url);
+
+	$: {
+		if ($menuStore || $page) {
+			formattedMenu = simpleMenu();
+		}
+	}
+</script>
+
+<div
+	class={clsx([
+		'tinker md:bg-black/[0.15] dark:bg-transparent relative py-5 px-5 md:py-0 sm:px-8 md:px-0',
+		"after:content-[''] after:bg-gradient-to-b after:from-theme-1 after:to-theme-2 dark:after:from-darkmode-800 dark:after:to-darkmode-800 after:fixed after:inset-0 after:z-[-2]"
+	])}
+>
+	<MobileMenu />
+	<div class="mt-[4.7rem] flex overflow-hidden md:mt-0">
+		<!-- BEGIN: Simple Menu -->
+		<nav
+			class="side-nav side-nav--simple z-10 hidden overflow-x-hidden px-5 pb-16 md:block md:w-[105px] xl:w-[105px]"
+		>
+			<a class="flex items-center pt-4 pl-5 mt-3 intro-x" href="/">
+				<img class="w-6" src={logoUrl} alt="Tinker Tailwind HTML Admin Template" />
+			</a>
+			<div class="my-6 side-nav__divider"></div>
+			<ul>
+				{#each formattedMenu as menu, menuKey}
+					{#if menu == 'divider'}
+						<li class="my-6 side-nav__divider"></li>
+					{:else}
+						<li>
+							<Tippy
+								as="a"
+								content={menu.title}
+								options={{
+									placement: 'right'
+								}}
+								href={menu.subMenu ? 'javascript:;' : menu.pathname}
+								on:click={(e) => {
+									e.preventDefault();
+									linkTo(menu);
+									formattedMenu = [...formattedMenu];
+								}}
+								class={clsx([menu.active ? 'side-menu side-menu--active' : 'side-menu'])}
+							>
+								<div class="side-menu__icon">
+									<Lucide icon={menu.icon} />
+								</div>
+								<div class="side-menu__title">
+									{menu.title}
+									{#if menu.subMenu}
+										<div
+											class={clsx([
+												'side-menu__sub-icon',
+												menu.activeDropdown && 'transform rotate-180'
+											])}
+										>
+											<Lucide icon="ChevronDown" />
+										</div>
+									{/if}
+								</div>
+							</Tippy>
+							{#if menu.subMenu && menu.activeDropdown}
+								<ul
+									class={clsx([menu.activeDropdown && 'side-menu__sub-open'])}
+									transition:slide|local={{ duration: 300 }}
+								>
+									{#each menu.subMenu as subMenu, subMenuKey}
+										<li>
+											<Tippy
+												as="a"
+												content={subMenu.title}
+												options={{
+													placement: 'right'
+												}}
+												href={subMenu.subMenu ? 'javascript:;' : subMenu.pathname}
+												class={clsx([subMenu.active ? 'side-menu side-menu--active' : 'side-menu'])}
+												on:click={(e) => {
+													e.preventDefault();
+													linkTo(subMenu);
+													formattedMenu = [...formattedMenu];
+												}}
+											>
+												<div class="side-menu__icon">
+													<Lucide icon={subMenu.icon} />
+												</div>
+												<div class="side-menu__title">
+													{subMenu.title}
+													{#if subMenu.subMenu}
+														<div
+															class={clsx([
+																'side-menu__sub-icon',
+																subMenu.activeDropdown && 'transform rotate-180'
+															])}
+														>
+															<Lucide icon="ChevronDown" />
+														</div>
+													{/if}
+												</div>
+											</Tippy>
+											{#if subMenu.subMenu && subMenu.activeDropdown}
+												<ul
+													class={clsx([subMenu.activeDropdown && 'side-menu__sub-open'])}
+													transition:slide|local={{ duration: 300 }}
+												>
+													{#each subMenu.subMenu as lastSubMenu, lastSubMenuKey}
+														<li>
+															<Tippy
+																as="a"
+																content={lastSubMenu.title}
+																options={{
+																	placement: 'right'
+																}}
+																href={lastSubMenu.subMenu ? 'javascript:;' : lastSubMenu.pathname}
+																class={clsx([
+																	lastSubMenu.active ? 'side-menu side-menu--active' : 'side-menu'
+																])}
+																on:click={(e) => {
+																	e.preventDefault();
+																	linkTo(lastSubMenu);
+																	formattedMenu = [...formattedMenu];
+																}}
+															>
+																<div class="side-menu__icon">
+																	<Lucide icon={lastSubMenu.icon} />
+																</div>
+																<div class="side-menu__title">
+																	{lastSubMenu.title}
+																</div>
+															</Tippy>
+														</li>
+													{/each}
+												</ul>
+											{/if}
+										</li>
+									{/each}
+								</ul>
+							{/if}
+						</li>
+					{/if}
+				{/each}
+			</ul>
+		</nav>
+		<!-- END: Simple Menu -->
+		<!-- BEGIN: Content -->
+		<div
+			class={clsx([
+				'rounded-[30px] md:rounded-[35px/50px_0px_0px_0px] min-w-0 min-h-screen max-w-full md:max-w-none bg-slate-100 flex-1 pb-10 px-4 md:px-6 relative md:ml-4 dark:bg-darkmode-700',
+				"before:content-[''] before:w-full before:h-px before:block",
+				"after:content-[''] after:z-[-1] after:rounded-[40px_0px_0px_0px] after:w-full after:inset-y-0 after:absolute after:left-0 after:bg-white/10 after:mt-8 after:-ml-4 after:dark:bg-darkmode-400/50"
+			])}
+		>
+			<TopBar />
+			<slot />
+		</div>
+		<!-- END: Content -->
+	</div>
+</div>
