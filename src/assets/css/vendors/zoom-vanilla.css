@@ -1,11 +1,12 @@
 @import 'zoom-vanilla.js/dist/zoom.css';
 
+@reference '../app.css';
 .zoom-overlay {
-	background-color: theme('colors.black' / 75%);
+	background-color: theme(colors.black / 75%);
 }
 
 .dark {
 	.zoom-overlay {
-		background-color: theme('colors.black' / 40%);
+		background-color: theme(colors.black / 40%);
 	}
 }

@@ -1,41 +1,28 @@
 import { toRGB } from './helper';
 import tailwindColors from 'tailwindcss/colors';
-import resolveConfig from 'tailwindcss/resolveConfig';
-import tailwindConfig from 'tailwind-config';
 import { flatten } from 'flat';
 
-const twConfig = resolveConfig(tailwindConfig);
-const colors = twConfig.theme?.colors;
-
-type DefaultColors = typeof tailwindColors;
-
-/** Extended colors */
-interface Colors extends DefaultColors {
-	primary: string;
-	secondary: string;
-	success: string;
-	info: string;
-	warning: string;
-	pending: string;
-	danger: string;
-	light: string;
-	dark: string;
-	darkmode: {
-		50: string;
-		100: string;
-		200: string;
-		300: string;
-		400: string;
-		500: string;
-		600: string;
-		700: string;
-		800: string;
-		900: string;
-	};
-}
+const colors = {
+	...tailwindColors,
+	primary: 'rgb(var(--color-primary) / <alpha-value>)',
+	secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+	success: 'rgb(var(--color-success) / <alpha-value>)',
+	info: 'rgb(var(--color-info) / <alpha-value>)',
+	warning: 'rgb(var(--color-warning) / <alpha-value>)',
+	pending: 'rgb(var(--color-pending) / <alpha-value>)',
+	danger: 'rgb(var(--color-danger) / <alpha-value>)',
+	light: 'rgb(var(--color-light) / <alpha-value>)',
+	dark: 'rgb(var(--color-dark) / <alpha-value>)',
+	darkmode: Object.fromEntries(
+		[50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => [
+			shade,
+			`rgb(var(--color-darkmode-${shade}) / <alpha-value>)`
+		])
+	)
+};
 
 /** Get a value from Tailwind colors by flatten index, if not available the value will be taken from the CSS variable with (--color-) prefix. */
-const getColor = (colorKey: DotNestedKeys<Colors>, opacity: number = 1) => {
+const getColor = (colorKey: string, opacity: number = 1) => {
 	const flattenColors = flatten<
 		typeof colors,
 		{
