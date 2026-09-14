@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '@/assets/css/vendors/ckeditor.css';
-	import BalloonEditor from '@ckeditor/ckeditor5-build-balloon';
+	import { BalloonEditor } from './builds';
 	import { onMount, createEventDispatcher } from 'svelte';
 	import Component from '$lib/components/Component';
 	import { init, type CkeditorProps, type CkeditorElement } from './ckeditor';

@@ -22,7 +22,7 @@
 
 <div
 	class={clsx([
-		'icewall px-5 sm:px-8 py-5 relative',
+		'icewall isolate px-5 sm:px-8 py-5 relative',
 		"after:content-[''] after:bg-gradient-to-b after:from-theme-1 after:to-theme-2 dark:after:from-darkmode-800 dark:after:to-darkmode-800 after:fixed after:inset-0 after:z-[-2]"
 	])}
 >
