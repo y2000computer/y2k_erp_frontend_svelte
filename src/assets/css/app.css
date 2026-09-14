@@ -40,7 +40,7 @@
  | https://tailwindcss.com/docs/installation#include-tailwind-in-your-css
  |
  */
-@import 'tailwindcss';
+@import 'tailwindcss/index.css';
 
 @config '../../../tailwind.config.js';
 

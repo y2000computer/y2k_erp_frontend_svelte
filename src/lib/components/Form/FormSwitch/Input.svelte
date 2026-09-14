@@ -16,8 +16,9 @@
 	let type: InputProps['type'];
 	let ref: InputProps['ref'] = undefined;
 	let value: InputProps['value'] = undefined;
+	let checked: InputProps['checked'] = undefined;
 
-	export { className as class, type, ref, value };
+	export { className as class, type, ref, value, checked };
 </script>
 
 <FormCheck.Input
@@ -55,5 +56,5 @@
 	on:mouseup
 	on:wheel
 	bind:ref
-	bind:value
+	bind:checked
 />

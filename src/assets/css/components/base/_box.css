@@ -20,13 +20,12 @@
   }
 }
 
-@utility dark {
-  .box {
-    background-color: theme(backgroundColor.darkmode.600);
-    border-color: var(--color-darkmode-500);
-    &--stacked:before {
-      background-color: rgb(var(--color-darkmode-600) / 70%);
-      border-color: rgb(100 116 139 / 60%);
-    }
-  }
+.dark .box {
+  background-color: theme(backgroundColor.darkmode.600);
+  border-color: var(--color-darkmode-500);
+}
+
+.dark .box--stacked:before {
+  background-color: rgb(var(--color-darkmode-600) / 70%);
+  border-color: rgb(100 116 139 / 60%);
 }

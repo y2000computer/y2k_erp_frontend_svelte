@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	import LitepickerJs from 'litepicker';
+	import type LitepickerJs from 'litepicker';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import type { ILPConfiguration } from 'litepicker/dist/types/interfaces.d';
 
@@ -49,7 +49,7 @@
 
 	afterUpdate(() => {
 		if (tempValue !== value && litepickerRef.litePickerInstance !== undefined) {
-			reInit(litepickerRef, {
+			void reInit(litepickerRef, {
 				options,
 				value,
 				onChange
@@ -70,7 +70,7 @@
 
 			await tick();
 
-			init(litepickerRef, {
+			await init(litepickerRef, {
 				options,
 				value,
 				onChange

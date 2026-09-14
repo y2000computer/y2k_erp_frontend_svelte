@@ -111,9 +111,9 @@
 							</div>
 							<div class="ml-2 overflow-hidden">
 								<div class="flex items-center">
-									<a href="#top" class="font-medium">
+									<span class="font-medium">
 										{faker.users[0].name}
-									</a>
+									</span>
 									<div class="ml-auto text-xs text-slate-400">
 										{faker.times[0]}
 									</div>

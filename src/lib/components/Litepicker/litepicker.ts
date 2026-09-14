@@ -1,20 +1,22 @@
 import dayjs from 'dayjs';
-import Litepicker from 'litepicker';
+import type Litepicker from 'litepicker';
 import type { LitepickerElement, LitepickerProps } from './Litepicker.svelte';
 
-interface Picker extends Litepicker {
-	on?: (
-		event: string,
-		cb: (
-			startDate: {
-				dateInstance: Date;
-			},
-			endDate: {
-				dateInstance: Date;
-			}
-		) => void
-	) => {};
-}
+type LitepickerConstructor = new (options: LitepickerProps['options'] & { element: HTMLElement }) => Litepicker;
+
+const loadLitepicker = async (): Promise<LitepickerConstructor> => {
+	const module = (await import('litepicker')) as unknown as Record<string, unknown>;
+	const defaultExport = module.default as Record<string, unknown> | undefined;
+	const constructor = [module.default, module.Litepicker, defaultExport?.default].find(
+		(candidate): candidate is LitepickerConstructor => typeof candidate === 'function'
+	);
+
+	if (typeof constructor !== 'function') {
+		throw new TypeError('Litepicker did not provide a constructor.');
+	}
+
+	return constructor as LitepickerConstructor;
+};
 
 const getDateFormat = (format: string | undefined) => {
 	return format !== undefined ? format : 'D MMM, YYYY';
@@ -32,30 +34,29 @@ const setValue = (props: LitepickerProps) => {
 	}
 };
 
-const init = (el: LitepickerElement, props: LitepickerProps) => {
+const init = async (el: LitepickerElement, props: LitepickerProps) => {
 	const format = getDateFormat(props.options.format);
+	const Litepicker = await loadLitepicker();
 	el.litePickerInstance = new Litepicker({
 		...props.options,
 		element: el,
 		format: format,
-		setup: (picker: Picker) => {
-			if (picker.on) {
-				picker.on('selected', (startDate, endDate) => {
-					let date = dayjs(startDate.dateInstance).format(format);
-					date +=
-						endDate !== undefined && endDate !== null
-							? ' - ' + dayjs(endDate.dateInstance).format(format)
-							: '';
-					props.onChange(date);
-				});
-			}
+		setup: (picker: Litepicker) => {
+			picker.on('selected', (startDate, endDate) => {
+				let date = dayjs(startDate.dateInstance).format(format);
+				date +=
+					endDate !== undefined && endDate !== null
+						? ' - ' + dayjs(endDate.dateInstance).format(format)
+						: '';
+				props.onChange(date);
+			});
 		}
 	});
 };
 
-const reInit = (el: LitepickerElement, props: LitepickerProps) => {
+const reInit = async (el: LitepickerElement, props: LitepickerProps) => {
 	el.litePickerInstance.destroy();
-	init(el, props);
+	await init(el, props);
 };
 
 export { setValue, init, reInit };
