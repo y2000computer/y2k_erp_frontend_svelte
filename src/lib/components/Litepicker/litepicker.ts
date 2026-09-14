@@ -2,7 +2,9 @@ import dayjs from 'dayjs';
 import type Litepicker from 'litepicker';
 import type { LitepickerElement, LitepickerProps } from './Litepicker.svelte';
 
-type LitepickerConstructor = new (options: LitepickerProps['options'] & { element: HTMLElement }) => Litepicker;
+type LitepickerConstructor = new (
+	options: LitepickerProps['options'] & { element: HTMLElement }
+) => Litepicker;
 
 const loadLitepicker = async (): Promise<LitepickerConstructor> => {
 	const module = (await import('litepicker')) as unknown as Record<string, unknown>;

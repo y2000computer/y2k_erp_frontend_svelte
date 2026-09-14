@@ -1,5 +1,5 @@
 @utility scrollbar-hidden {
-  &::-webkit-scrollbar {
-    @apply w-0 bg-transparent;
-  }
+	&::-webkit-scrollbar {
+		@apply w-0 bg-transparent;
+	}
 }

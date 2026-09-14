@@ -29,8 +29,11 @@ const toRGB = (value) => {
 	}
 
 	const hex = value.replace('#', '');
-	const normalized = hex.length === 3 ? [...hex].map((character) => character + character).join('') : hex;
-	return [0, 2, 4].map((offset) => Number.parseInt(normalized.slice(offset, offset + 2), 16)).join(' ');
+	const normalized =
+		hex.length === 3 ? [...hex].map((character) => character + character).join('') : hex;
+	return [0, 2, 4]
+		.map((offset) => Number.parseInt(normalized.slice(offset, offset + 2), 16))
+		.join(' ');
 };
 
 /** @type {import('tailwindcss').Config} */
