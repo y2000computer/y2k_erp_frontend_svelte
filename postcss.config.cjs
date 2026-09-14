@@ -1,9 +1,13 @@
+const path = require('path');
+
 module.exports = {
 	plugins: {
-		'postcss-import': {},
+		'postcss-import': {
+			path: [path.join(__dirname, 'node_modules')]
+		},
 		'postcss-advanced-variables': {},
-		'tailwindcss/nesting': {},
-		tailwindcss: {},
+		'postcss-nesting': {},
+		'@tailwindcss/postcss': {},
 		autoprefixer: {}
 	}
 };

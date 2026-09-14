@@ -1,21 +1,21 @@
 html {
 	&.dark {
 		body {
-			color: theme('colors.slate.300');
+			color: var(--color-slate-300);
 			*,
 			::before,
 			::after {
-				border-color: theme('colors.white' / 5%);
+				border-color: theme(colors.white / 5%);
 			}
 		}
 	}
 	body {
-		letter-spacing: theme('letterSpacing.wide');
-		font-size: theme('fontSize.sm');
+		letter-spacing: var(--tracking-wide);
+		font-size: var(--text-sm);
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
-		font-family: theme('fontFamily.roboto');
-		color: theme('colors.slate.600');
-		line-height: theme('lineHeight.5');
+		font-family: var(--font-roboto);
+		color: var(--color-slate-600);
+		line-height: theme(lineHeight.5);
 	}
 }

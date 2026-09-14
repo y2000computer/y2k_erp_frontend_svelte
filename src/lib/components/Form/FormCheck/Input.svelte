@@ -14,13 +14,16 @@
 	let type: InputProps['type'];
 	let ref: InputProps['ref'] = undefined;
 	let value: InputProps['value'] = undefined;
+	let checked: InputProps['checked'] = undefined;
 
-	export { className as class, type, ref, value };
+	export { className as class, type, ref, value, checked };
 </script>
 
-<input
-	{...$$props}
-	class={twMerge([
+{#if type === 'checkbox'}
+	<input
+		{...$$props}
+		type="checkbox"
+		class={twMerge([
 		// Default
 		'transition-all duration-100 ease-in-out',
 
@@ -43,27 +46,78 @@
 		'[&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50',
 
 		className
-	])}
-	on:blur
-	on:change
-	on:contextmenu
-	on:focus
-	on:input
-	on:invalid
-	on:reset
-	on:select
-	on:submit
-	on:keydown
-	on:keypress
-	on:keyup
-	on:click
-	on:dblclick
-	on:mousedown
-	on:mousemove
-	on:mouseout
-	on:mouseover
-	on:mouseup
-	on:wheel
-	bind:this={ref}
-	bind:value
-/>
+		])}
+		on:blur
+		on:change
+		on:contextmenu
+		on:focus
+		on:input
+		on:invalid
+		on:reset
+		on:select
+		on:submit
+		on:keydown
+		on:keypress
+		on:keyup
+		on:click
+		on:dblclick
+		on:mousedown
+		on:mousemove
+		on:mouseout
+		on:mouseover
+		on:mouseup
+		on:wheel
+		bind:this={ref}
+		bind:checked
+	/>
+{:else}
+	<input
+		{...$$props}
+		type="radio"
+		class={twMerge([
+			// Default
+			'transition-all duration-100 ease-in-out',
+
+			// Input type radio
+			type == 'radio' &&
+				'shadow-sm border-slate-200 cursor-pointer focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50',
+
+			// Input type checkbox
+			type == 'checkbox' &&
+				'shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50',
+
+			// On checked
+			"[&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10",
+			"[&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10",
+
+			// On checked and not disabled
+			'[&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50',
+
+			// On checked and disabled
+			'[&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50',
+
+			className
+		])}
+		on:blur
+		on:change
+		on:contextmenu
+		on:focus
+		on:input
+		on:invalid
+		on:reset
+		on:select
+		on:submit
+		on:keydown
+		on:keypress
+		on:keyup
+		on:click
+		on:dblclick
+		on:mousedown
+		on:mousemove
+		on:mouseout
+		on:mouseover
+		on:mouseup
+		on:wheel
+		bind:this={ref}
+	/>
+{/if}
