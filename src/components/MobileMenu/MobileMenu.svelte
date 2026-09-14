@@ -32,13 +32,18 @@
 <!-- BEGIN: Mobile Menu -->
 <div
 	class={clsx([
-		'mobile-menu group top-0 inset-x-0 fixed bg-theme-1/90 z-[60] border-b border-white/[0.08] dark:bg-darkmode-800/90 md:hidden',
-		"before:content-[''] before:w-full before:h-screen before:z-10 before:fixed before:inset-x-0 before:bg-black/90 before:transition-opacity before:duration-200 before:ease-in-out",
-		'before:invisible before:opacity-0',
-		'[&.mobile-menu--active]:before:visible [&.mobile-menu--active]:before:opacity-100',
+		'mobile-menu group top-0 inset-x-0 fixed h-[70px] bg-theme-1/90 z-[60] border-b border-white/[0.08] dark:bg-darkmode-800/90 md:hidden',
 		activeMobileMenu && 'mobile-menu--active'
 	])}
 >
+	{#if activeMobileMenu}
+		<button
+			type="button"
+			class="fixed inset-0 z-10 w-full h-screen bg-black/90"
+			aria-label="Close navigation menu"
+			on:click={() => (activeMobileMenu = false)}
+		></button>
+	{/if}
 	<div class="h-[70px] px-3 sm:px-8 flex items-center">
 		<a href="#top" class="flex mr-auto">
 			<img alt="Midone Tailwind HTML Admin Template" class="w-6" src={logoUrl} />
@@ -56,8 +61,8 @@
 	<div
 		bind:this={scrollableRef}
 		class={clsx([
-			'h-screen z-20 top-0 left-0 w-[270px] -ml-[100%] bg-primary transition-all duration-300 ease-in-out dark:bg-darkmode-800',
-			'[&[data-simplebar]]:fixed [&_.simplebar-scrollbar]:before:bg-black/50',
+			'fixed h-screen z-20 top-0 left-0 w-[270px] -ml-[100%] bg-primary transition-all duration-300 ease-in-out dark:bg-darkmode-800',
+			'[&_.simplebar-scrollbar]:before:bg-black/50',
 			'group-[.mobile-menu--active]:ml-0'
 		])}
 	>
