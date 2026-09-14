@@ -15,7 +15,7 @@
 			color: theme(colors.slate.600);
 			position: relative;
 			border-radius: theme(borderRadius.full);
-			@media screen(xl) {
+			@media (min-width: 1280px) {
 				border-radius: theme(borderRadius.xl);
 			}
 			.top-menu__icon {
@@ -34,7 +34,7 @@
 					width: theme(spacing.4);
 					height: theme(spacing.4);
 					display: none;
-					@media screen(xl) {
+					@media (min-width: 1280px) {
 						display: block;
 					}
 				}
@@ -71,7 +71,7 @@
 								position: absolute;
 								z-index: -1;
 								border-bottom: 3px solid theme(colors.black / 8%);
-								@media screen(xl) {
+								@media (min-width: 1280px) {
 									border-radius: theme(borderRadius.xl);
 								}
 							}
@@ -101,7 +101,7 @@
 							border-radius: theme(borderRadius.xl);
 							position: absolute;
 							border-bottom: 3px solid theme(colors.black / 8%);
-							@media screen(xl) {
+							@media (min-width: 1280px) {
 								display: block;
 							}
 						}
@@ -124,7 +124,7 @@
 							animation-fill-mode: forwards;
 							margin-bottom: -74px;
 							opacity: 0;
-							@media screen(xl) {
+							@media (min-width: 1280px) {
 								display: block;
 							}
 						}
@@ -134,7 +134,7 @@
 						.top-menu__title {
 							font-weight: theme(fontWeight.medium);
 							color: theme(colors.slate.800);
-							@media screen(xl) {
+							@media (min-width: 1280px) {
 								color: theme(colors.theme.1);
 							}
 						}

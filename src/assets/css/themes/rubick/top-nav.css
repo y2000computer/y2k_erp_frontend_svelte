@@ -10,7 +10,7 @@
 			align-items: center;
 			color: white;
 			position: relative;
-			@media screen(xl) {
+			@media (min-width: 1280px) {
 				border-top-left-radius: theme(borderRadius.2xl);
 				border-top-right-radius: theme(borderRadius.2xl);
 				border-bottom-left-radius: 0;
@@ -27,7 +27,7 @@
 						top: 0;
 						left: 0;
 						border-radius: theme(borderRadius.full);
-						@media screen(xl) {
+						@media (min-width: 1280px) {
 							border-bottom-left-radius: 0;
 							border-bottom-right-radius: 0;
 							border-top-left-radius: theme(borderRadius.2xl);
@@ -51,7 +51,7 @@
 					width: theme(spacing.4);
 					height: theme(spacing.4);
 					display: none;
-					@media screen(xl) {
+					@media (min-width: 1280px) {
 						display: block;
 					}
 				}
@@ -112,7 +112,7 @@
 							bottom: 0;
 							left: 0;
 							display: none;
-							@media screen(xl) {
+							@media (min-width: 1280px) {
 								display: block;
 							}
 						}
@@ -128,7 +128,7 @@
 							bottom: 0;
 							right: 0;
 							display: none;
-							@media screen(xl) {
+							@media (min-width: 1280px) {
 								display: block;
 							}
 						}
@@ -172,7 +172,7 @@
 						border-radius: theme(borderRadius.md);
 						z-index: -1;
 					}
-					@media screen(xl) {
+					@media (min-width: 1280px) {
 						left: 100%;
 						margin-left: -4px;
 						margin-top: calc(theme(spacing.5) * -1);

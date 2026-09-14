@@ -34,7 +34,7 @@
 				align-items: center;
 				width: 100%;
 				margin-left: theme(spacing.3);
-				@media screen(xl) {
+				@media (min-width: 1280px) {
 					display: flex;
 				}
 				.side-menu__sub-icon {
@@ -44,7 +44,7 @@
 					margin-left: auto;
 					margin-right: theme(spacing.5);
 					display: none;
-					@media screen(xl) {
+					@media (min-width: 1280px) {
 						display: block;
 					}
 					svg {
